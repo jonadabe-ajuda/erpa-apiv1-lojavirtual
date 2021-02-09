@@ -35,7 +35,7 @@ public class CustomersController {
 		
 		
 		
-		SaveOrders saveOrders = new SaveOrders(new RepositoryOrdersMysql("erpa-loja"));
+		SaveOrders saveOrders = new SaveOrders(new RepositoryOrdersMysql("erpa-loja-ec2"));
 		OrdersDTO ordersDTO = convertToOrderDTO(ordersForm);
 		saveOrders.execute(ordersDTO);
 		
@@ -48,14 +48,14 @@ public class CustomersController {
 	
 	@GetMapping
 	public List<OrdersDTO> all() {
-		RecoverOrdersAll recoverCustomerAll = new RecoverOrdersAll(new  RepositoryOrdersMysql("erpa-loja"));
+		RecoverOrdersAll recoverCustomerAll = new RecoverOrdersAll(new  RepositoryOrdersMysql("erpa-loja-ec2"));
 		return recoverCustomerAll.execute();
 	}
 	
 	@GetMapping("/{number}")
 	public ResponseEntity<OrdersDTO> recoverWithNumber(@PathVariable(required = true) Long number) {
 		
-		RecoverOrdersNumber recoverOrdersNumber = new RecoverOrdersNumber(new RepositoryOrdersMysql("erpa-loja"));
+		RecoverOrdersNumber recoverOrdersNumber = new RecoverOrdersNumber(new RepositoryOrdersMysql("erpa-loja-ec2"));
 		OrdersDTO ordersDTO = recoverOrdersNumber.execute(number);
 		
 		if (ordersDTO != null) {
@@ -69,7 +69,7 @@ public class CustomersController {
 	@PutMapping("/{number}")
 	public ResponseEntity<OrdersDTO> update(@RequestBody @Valid OrdersForm customersUpdateForm, @PathVariable(required = true) String cpf, UriComponentsBuilder urBuilder) {
 		
-		UpdateOrders updateOrders = new UpdateOrders(new RepositoryOrdersMysql("erpa-loja"));
+		UpdateOrders updateOrders = new UpdateOrders(new RepositoryOrdersMysql("erpa-loja-ec2"));
 		OrdersDTO ordersDTO = convertToOrderDTO(customersUpdateForm);
 		updateOrders.execute(ordersDTO);
 		
@@ -82,7 +82,7 @@ public class CustomersController {
 	@DeleteMapping("/{number}")
 	public ResponseEntity<?> delete(@PathVariable(required = true) Long number) {
 	
-		DeleteOrders deleteOrders = new DeleteOrders(new RepositoryOrdersMysql("erpa-loja"));
+		DeleteOrders deleteOrders = new DeleteOrders(new RepositoryOrdersMysql("erpa-loja-ec2"));
 		OrdersDTO ordersDTO = new OrdersDTO();
 		ordersDTO.setNumber(number);
 		deleteOrders.execute(ordersDTO);
